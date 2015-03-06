@@ -16,12 +16,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-        <header id="toolbar">
-            <h1>@Html.ActionLink("Meldingen Applicatie", "Index", "Report")</h1>
+    <header id="toolbar">
+        <h1>@Html.ActionLink("Meldingen Applicatie", "Index", "Report")</h1>
+
+        <a href="@Url.Action("Create")">
             <div id="attachPicture">
-                <input class="overlayInput" type="file" accept="image/*">
             </div>
-        </header>
-        @RenderBody()
+        </a>
+    </header>
+    @RenderBody()
 </body>
 </html>
