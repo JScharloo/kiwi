@@ -9,6 +9,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Resources;
+using System.Configuration;
 
 namespace Lisa.Kiwi.Web.Reporting.Controllers
 {
@@ -106,12 +107,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             return await _reportProxy.GetAsync(reportId);
         }
 
-        // Fiddler version
-        //private readonly Proxy<Report> _reportProxy = new Proxy<Report>("http://localhost.fiddler:20151/", "/reports/");
-
-        // Normal version
-        private readonly Proxy<Report> _reportProxy = new Proxy<Report>("http://localhost:20151/", "/reports/");
-
+        private readonly Proxy<Report> _reportProxy = new Proxy<Report>(ConfigurationManager.AppSettings["WebApiUrl"], "/reports/");
         private readonly ModelFactory _modelFactory = new ModelFactory();
 	}
 }
