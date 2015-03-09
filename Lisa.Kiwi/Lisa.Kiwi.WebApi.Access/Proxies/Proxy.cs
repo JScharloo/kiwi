@@ -6,12 +6,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using System.Text;
+using System.Configuration;
 
 namespace Lisa.Kiwi.WebApi
 {
     public class Proxy<T>
     {
-        public Proxy(string baseUrl, string resourceUrl, string token = null, string tokenType = null)
+        public Proxy(string baseUrl, string resourceUrl, string token, string tokenType)
         {
             _baseUrl = baseUrl.Trim('/');
             _resourceUrl = resourceUrl.Trim('/');
@@ -29,6 +30,21 @@ namespace Lisa.Kiwi.WebApi
                     }
                 }
             };
+        }
+
+        public Proxy(string resourceUrl, string token, string tokenType) :
+            this(ConfigurationManager.AppSettings["WebApiUrl"], resourceUrl, token, tokenType)
+        {
+        }
+
+        public Proxy(string baseUrl, string resourceUrl) :
+            this(baseUrl, resourceUrl, null, null)
+        {
+        }
+
+        public Proxy(string resourceUrl) :
+            this(ConfigurationManager.AppSettings["WebApiUrl"], resourceUrl, null, null)
+        {
         }
 
         public async Task<IEnumerable<T>> GetAsync()

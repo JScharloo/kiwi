@@ -107,7 +107,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             return await _reportProxy.GetAsync(reportId);
         }
 
-        private readonly Proxy<Report> _reportProxy = new Proxy<Report>(ConfigurationManager.AppSettings["WebApiUrl"], "/reports/");
+        private readonly Proxy<Report> _reportProxy = new Proxy<Report>("/reports/");
         private readonly ModelFactory _modelFactory = new ModelFactory();
 	}
 }
