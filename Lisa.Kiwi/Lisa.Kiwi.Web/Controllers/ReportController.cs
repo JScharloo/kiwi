@@ -138,7 +138,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             image.Delete();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("viewPhoto");
         }
 
         private CloudStorageAccount _StorageAccount;
