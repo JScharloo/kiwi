@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Lisa.Kiwi.Web
+namespace Lisa.Kiwi.Web.Utils
 {
     public static class HtmlHelpers
     {
