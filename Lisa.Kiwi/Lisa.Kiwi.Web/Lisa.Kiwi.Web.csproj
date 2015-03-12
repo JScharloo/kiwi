@@ -283,6 +283,7 @@
     <Content Include="Views\Dashboard\CategoryPartials\_PartialDetailsOther.cshtml" />
     <Content Include="Views\Dashboard\CategoryPartials\_PartialDetailsNuisance.cshtml" />
     <Content Include="Views\Dashboard\CategoryPartials\_PartialDetailsTheft.cshtml" />
+    <Content Include="Views\Report\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
