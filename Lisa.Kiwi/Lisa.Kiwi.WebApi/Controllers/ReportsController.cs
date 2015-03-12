@@ -35,6 +35,7 @@ namespace Lisa.Kiwi.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> Post([FromBody] JToken json)
         {
+            return InternalServerError();
             if (!ModelState.IsValid)
             {
                 return BadRequest();
