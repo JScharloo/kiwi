@@ -78,6 +78,11 @@ namespace Lisa.Kiwi.WebApi
                 var result = await client.SendAsync(request);
                 var json = await result.Content.ReadAsStringAsync();
 
+                if (!result.IsSuccessStatusCode)
+                {
+                    throw new Exception(json);
+                }
+
                 return JsonConvert.DeserializeObject<T>(json, _settings);
             }
         }
@@ -99,6 +104,11 @@ namespace Lisa.Kiwi.WebApi
 
                 var result = await client.SendAsync(request);
                 var json = await result.Content.ReadAsStringAsync();
+
+                if (!result.IsSuccessStatusCode)
+                {
+                    throw new Exception(json);
+                }
 
                 return JsonConvert.DeserializeObject<T>(json, _settings);
             }
