@@ -28,10 +28,8 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
 
             var report = _modelFactory.Create(viewModel);
-            report = await _reportProxy.PostAsync(report);
-
-            // TODO: add error handling
-
+            report = await PostReport(report);
+            
             var cookie = new HttpCookie("report", report.Id.ToString());
             Response.SetCookie(cookie);
 
@@ -53,7 +51,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             return RedirectToAction(report.Category);
         }
@@ -73,7 +71,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             // TODO: add error handling
 
@@ -96,7 +94,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             return RedirectToAction("ContactRequired");
         }
@@ -116,7 +114,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             return RedirectToAction("Perpetrator");
         }
@@ -136,7 +134,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             // TODO: add error handling
 
@@ -158,7 +156,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             return RedirectToAction("Perpetrator");
         }
@@ -178,7 +176,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             return RedirectToAction("ContactRequired");
         }
@@ -198,7 +196,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             return RedirectToAction("Perpetrator");
         }
@@ -218,7 +216,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             return RedirectToAction("ContactRequired");
         }
@@ -238,7 +236,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         	
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             // TODO: add error handling
             return RedirectToAction("Contact");
@@ -259,7 +257,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             // TODO: add error handling
 
@@ -281,7 +279,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
-            await _reportProxy.PatchAsync(report.Id, report);
+            await PatchReport(report.Id, report);
 
             // TODO: add error handling
 
@@ -294,6 +292,11 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             return View();
         }
 
+	    public ActionResult Error()
+	    {
+	        return View();
+	    }
+
         private async Task<Report> GetCurrentReport()
         {
             var cookie = Request.Cookies["report"];
@@ -303,6 +306,34 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             int reportId = Int32.Parse(cookie.Value);
             return await _reportProxy.GetAsync(reportId);
+        }
+
+        private async Task<Report> PostReport(Report report)
+        {
+            try
+            {
+                return await _reportProxy.PostAsync(report);
+            }
+            catch (Exception e)
+            {
+                RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het opslaan van het report.", TechnicalErrorMessage = e.Message });
+            }
+            return null;
+        }
+
+
+
+        private async Task<Report> PatchReport(int id, Report report)
+        {
+            try
+            {
+                return await _reportProxy.PatchAsync(id, report);
+            }
+            catch (Exception e)
+            {
+                RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van het report.", TechnicalErrorMessage = e.Message });
+            }
+            return null;
         }
 
         // Fiddler version
