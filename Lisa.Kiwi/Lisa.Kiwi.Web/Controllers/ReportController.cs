@@ -442,7 +442,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
         private readonly ModelFactory _modelFactory = new ModelFactory();
 
-        private string _postErrorMessage = Resources.Errors.Post;
-        private string _patchErrorMessage = Resources.Errors.Patch;
+        private readonly string _postErrorMessage = Errors.Post;
+        private readonly string _patchErrorMessage = Errors.Patch;
     }
 }
