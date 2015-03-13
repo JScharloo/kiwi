@@ -35,7 +35,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het opslaan van de melding.";
+                ViewBag.ErrorMessage = _postErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
 
@@ -69,7 +69,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -99,7 +99,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -130,7 +130,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -161,7 +161,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -191,7 +191,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -221,7 +221,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -251,7 +251,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -281,7 +281,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -311,7 +311,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -341,7 +341,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -371,7 +371,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -401,7 +401,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.ErrorMessage = _patchErrorMessage;
                 ViewBag.TechnicalErrorMessage = e.Message;
                 return View("Error");
             }
@@ -441,5 +441,8 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         private readonly Proxy<Report> _reportProxy = new Proxy<Report>("http://localhost:20151/", "/reports/");
 
         private readonly ModelFactory _modelFactory = new ModelFactory();
+
+        private string _postErrorMessage = Resources.Errors.Post;
+        private string _patchErrorMessage = Resources.Errors.Patch;
     }
 }
