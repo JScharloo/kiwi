@@ -12,8 +12,8 @@ using Resources;
 
 namespace Lisa.Kiwi.Web.Reporting.Controllers
 {
-	public class ReportController : Controller
-	{
+    public class ReportController : Controller
+    {
         public ActionResult Index()
         {
             return View(new CategoryViewModel());
@@ -28,14 +28,17 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
 
             var report = _modelFactory.Create(viewModel);
-            
+
             try
             {
                 report = await _reportProxy.PostAsync(report);
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het opslaan van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het opslaan van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
+
             }
 
             var cookie = new HttpCookie("report", report.Id.ToString());
@@ -66,7 +69,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction(report.Category);
@@ -78,8 +83,8 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         }
 
         [HttpPost]
-	    public async Task<ActionResult> FirstAid(FirstAidViewModel viewModel)
-	    {
+        public async Task<ActionResult> FirstAid(FirstAidViewModel viewModel)
+        {
             if (!ModelState.IsValid)
             {
                 return View(viewModel);
@@ -94,11 +99,13 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
-	        return RedirectToAction("Contact");
-	    }
+            return RedirectToAction("Contact");
+        }
 
 
         public ActionResult Theft()
@@ -107,7 +114,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         }
 
         [HttpPost]
-		public async Task<ActionResult> Theft(TheftViewModel viewModel)
+        public async Task<ActionResult> Theft(TheftViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -123,7 +130,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
 
@@ -131,7 +140,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         }
 
         public ActionResult Drugs()
-	    {
+        {
             return View();
         }
 
@@ -152,7 +161,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("Perpetrator");
@@ -180,7 +191,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("Contact");
@@ -208,13 +221,15 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("Perpetrator");
         }
 
-		public ActionResult Nuisance()
+        public ActionResult Nuisance()
         {
             return View();
         }
@@ -236,7 +251,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("ContactRequired");
@@ -250,7 +267,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         [HttpPost]
         public async Task<ActionResult> Bullying(BullyingViewModel viewModel)
         {
-        	if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
@@ -264,7 +281,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("Perpetrator");
@@ -278,7 +297,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         [HttpPost]
         public async Task<ActionResult> Other(OtherViewModel viewModel)
         {
-        	if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
@@ -292,7 +311,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("ContactRequired");
@@ -306,11 +327,11 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         [HttpPost]
         public async Task<ActionResult> Perpetrator(PerpetratorViewModel viewModel)
         {
-        	if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
-        	
+
             var report = await GetCurrentReport();
             _modelFactory.Modify(report, viewModel);
 
@@ -320,7 +341,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("Contact");
@@ -348,7 +371,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("Done");
@@ -376,7 +401,9 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Error", new { ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.", TechnicalErrorMessage = e.Message });
+                ViewBag.ErrorMessage = "Er is iets fout gegaan tijdens het aanpassen van de melding.";
+                ViewBag.TechnicalErrorMessage = e.Message;
+                return View("Error");
             }
 
             return RedirectToAction("Done");
@@ -393,8 +420,8 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             ViewBag.ErrorMessage = errorMessage;
             ViewBag.TechnicalErrorMessage = technicalErrorMessage;
 
-	        return View();
-	    }
+            return View();
+        }
 
         private async Task<Report> GetCurrentReport()
         {
@@ -414,5 +441,5 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         private readonly Proxy<Report> _reportProxy = new Proxy<Report>("http://localhost:20151/", "/reports/");
 
         private readonly ModelFactory _modelFactory = new ModelFactory();
-	}
+    }
 }

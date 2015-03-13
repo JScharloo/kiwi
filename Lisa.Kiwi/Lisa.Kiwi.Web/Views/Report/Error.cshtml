@@ -21,6 +21,6 @@ else
 
 @if (ViewBag.TechnicalErrorMessage != null || ViewBag.StatusCode != null)
 {
-    <h5>Technische fout</h5>
-    <pre>@ViewBag.TechnicalErrorMessage</pre>
+    <h3>Technische fout</h3>
+    <p>@((string)ViewBag.TechnicalErrorMessage.Replace("/\r/\n", "<br>"))</p>
 }
