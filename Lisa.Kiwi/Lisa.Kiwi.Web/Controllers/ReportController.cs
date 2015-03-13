@@ -25,6 +25,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             {
                 var image = GetImage(photo);
 
+
                 var viewPhoto = new ViewPhoto
                 {
                     Id = photo.Id,
@@ -66,6 +67,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Photo photoEntity, HttpPostedFileBase photo)
         {
+
             if (!IsImage(photo.ContentType))
             {
                 ModelState.AddModelError("Image", "Only images alloud.");
@@ -77,34 +79,70 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
                 ModelState.AddModelError("Image", "The image cannot be larger then 20MB.");
             }
 
+            var cookie = Request.Cookies["report"];
+            int reportId = Int32.Parse(cookie.Value);
             var extension = Path.GetExtension(photo.FileName);
-            var key = string.Format("Photo-{0}{1}", Guid.NewGuid(), extension);
-
-            if (photoEntity.Name == null)
+            var blobname = string.Format("{0}/{1}{2}",reportId, i, extension);
+            var blob = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString")).CreateCloudBlobClient().GetContainerReference("photos").GetBlockBlobReference(blobname);
+            if (blob.Exists())
             {
-                photoEntity.Name = photo.FileName;
-                photoEntity.Name = photoEntity.Name.Replace(extension, "");
+                i = i + 1;
+                var key = string.Format("{0}/{1}{2}", reportId, i, extension);
+                if (photoEntity.Name == null)
+                {
+                    photoEntity.Name = photo.FileName;
+                    photoEntity.Name = photoEntity.Name.Replace(extension, "");
+                }
+
+                photoEntity.ContentLength = photo.ContentLength;
+                photoEntity.ContentType = photo.ContentType;
+                photoEntity.Key = key;
+            
+
+                if (!ModelState.IsValid)
+                {
+                    // Make the fields empty, because they need a new image.
+                    photoEntity = null;
+                    return View(photoEntity);
+                }
+
+                CloudBlockBlob block = _Container.GetBlockBlobReference(key);
+                block.Properties.ContentType = photo.ContentType;
+
+                block.UploadFromStream(photo.InputStream);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var key = string.Format("{0}/{1}{2}", reportId, i, extension);
+                if (photoEntity.Name == null)
+                {
+                    photoEntity.Name = photo.FileName;
+                    photoEntity.Name = photoEntity.Name.Replace(extension, "");
+                }
+
+                photoEntity.ContentLength = photo.ContentLength;
+                photoEntity.ContentType = photo.ContentType;
+                photoEntity.Key = key;
+   
+
+                if (!ModelState.IsValid)
+                {
+                    // Make the fields empty, because they need a new image.
+                    photoEntity = null;
+                    return View(photoEntity);
+                }
+
+                CloudBlockBlob block = _Container.GetBlockBlobReference(key);
+                block.Properties.ContentType = photo.ContentType;
+
+                block.UploadFromStream(photo.InputStream);
+
+                return RedirectToAction("Index");
             }
 
-            photoEntity.ContentLength = photo.ContentLength;
-            photoEntity.ContentType = photo.ContentType;
-            photoEntity.Key = key;
 
-            if (!ModelState.IsValid)
-            {
-                // Make the fields empty, because they need a new image.
-                photoEntity = null;
-                return View(photoEntity);
-            }
 
-            CloudBlockBlob block = _Container.GetBlockBlobReference(key);
-            block.Properties.ContentType = photo.ContentType;
-            block.UploadFromStream(photo.InputStream);
-
-            _Db.Photos.Add(photoEntity);
-            _Db.SaveChanges();
-
-            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int? id)
@@ -140,7 +178,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
 
             return RedirectToAction("viewPhoto");
         }
-
+        private static int i = 0;
         private CloudStorageAccount _StorageAccount;
         private CloudBlobClient _BlobClient;
         private CloudBlobContainer _Container;
@@ -185,6 +223,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             return false;
         }
+
 
         public ActionResult Index()
         {
