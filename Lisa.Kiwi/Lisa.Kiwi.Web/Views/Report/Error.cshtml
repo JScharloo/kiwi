@@ -2,6 +2,25 @@
 @{
     ViewBag.Title = "Error";
 }
+<br /><br /><br />
+<br/>
 
-<h2>Oeps, er is iets fout gegaan in de applicatie. @Html.ActionLink("Probeer opnieuw een melding te maken.", "Index")</h2>
 
+@if (ViewBag.ErrorMessage != null)
+{
+    <h3>@ViewBag.ErrorMessage</h3>
+}
+else
+{
+    <h3>Er is iets fout gegaan in de applicatie.</h3>
+}
+
+<h4>@Html.ActionLink("Probeer opnieuw een melding te maken.", "Index")</h4>
+
+<br />
+
+@if (ViewBag.TechnicalErrorMessage != null || ViewBag.StatusCode != null)
+{
+    <h5>Technische fout</h5>
+    <pre>@ViewBag.TechnicalErrorMessage</pre>
+}

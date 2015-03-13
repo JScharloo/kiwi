@@ -389,7 +389,10 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
         }
 
         public ActionResult Error(string errorMessage, string technicalErrorMessage)
-	    {
+        {
+            ViewBag.ErrorMessage = errorMessage;
+            ViewBag.TechnicalErrorMessage = technicalErrorMessage;
+
 	        return View();
 	    }
 
