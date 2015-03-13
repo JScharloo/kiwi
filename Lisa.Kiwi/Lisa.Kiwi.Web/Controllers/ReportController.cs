@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Lisa.Kiwi.WebApi;
+using Newtonsoft.Json;
+using Resources;
+using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Lisa.Kiwi.Web.Models;
-using Lisa.Kiwi.WebApi;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
-using Resources;
 
 namespace Lisa.Kiwi.Web.Reporting.Controllers
 {
@@ -388,12 +384,14 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             return View();
         }
 
-        public ActionResult Error(string errorMessage, string exeptionJson)
+        public ActionResult Error(string errorMessage, string exceptionJson)
         {
-            ViewBag.ErrorMessage = errorMessage;
-            ViewBag.TechnicalErrorMessage = technicalErrorMessage;
+            var errorObject = JsonConvert.DeserializeObject<ErrorViewModel>(exceptionJson);
 
-            return View();
+            ViewBag.ErrorMessage = errorMessage;
+
+
+            return View("Error", errorObject);
         }
 
         private async Task<Report> GetCurrentReport()
