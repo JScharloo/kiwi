@@ -1,8 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Error";
 }
-<br /><br /><br />
+<br/><br/><br/>
 <br/>
 
 
@@ -17,10 +16,17 @@ else
 
 <h4>@Html.ActionLink("Probeer opnieuw een melding te maken.", "Index")</h4>
 
-<br />
+<br/>
 
 @if (ViewBag.TechnicalErrorMessage != null || ViewBag.StatusCode != null)
 {
     <h3>Technische fout</h3>
-    <p>@((string)ViewBag.TechnicalErrorMessage.Replace("/\r/\n", "<br>"))</p>
+
+    var original = (string) ViewBag.TechnicalErrorMessage;
+    var errorLines = original.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries);
+
+    foreach (var line in errorLines)
+    {
+        @line<br/>
+    }
 }
