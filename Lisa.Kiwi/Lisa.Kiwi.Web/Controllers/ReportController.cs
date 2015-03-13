@@ -35,10 +35,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _postErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
-
+                return Error(_postErrorMessage, e.Message);
             }
 
             var cookie = new HttpCookie("report", report.Id.ToString());
@@ -69,9 +66,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction(report.Category);
@@ -99,9 +94,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("Contact");
@@ -130,9 +123,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
 
@@ -161,9 +152,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("Perpetrator");
@@ -191,9 +180,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("Contact");
@@ -221,9 +208,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("Perpetrator");
@@ -251,9 +236,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("ContactRequired");
@@ -281,9 +264,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("Perpetrator");
@@ -311,9 +292,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("ContactRequired");
@@ -341,9 +320,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("Contact");
@@ -371,9 +348,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("Done");
@@ -401,9 +376,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = _patchErrorMessage;
-                ViewBag.TechnicalErrorMessage = e.Message;
-                return View("Error");
+                return Error(_patchErrorMessage, e.Message);
             }
 
             return RedirectToAction("Done");
@@ -415,7 +388,7 @@ namespace Lisa.Kiwi.Web.Reporting.Controllers
             return View();
         }
 
-        public ActionResult Error(string errorMessage, string technicalErrorMessage)
+        public ActionResult Error(string errorMessage, string exeptionJson)
         {
             ViewBag.ErrorMessage = errorMessage;
             ViewBag.TechnicalErrorMessage = technicalErrorMessage;
