@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Lisa.Kiwi.WebApi.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class ReportsController : ApiController
     {
         [EnableQuery]
