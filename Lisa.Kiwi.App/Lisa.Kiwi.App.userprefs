@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="Droid\Lisa.Kiwi.App.Droid.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.AVD_for_Nexus_7_2012_by_Google" />
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\jeremy\Documents\Projects\Lisa.Kiwi.App\Shared\MyPage.cs" line="12" column="1" />
+      <Breakpoint file="C:\Users\jeremy\Documents\Projects\Lisa.Kiwi.App\Shared\MyPage.cs" line="11" column="1" />
+      <Breakpoint file="C:\Users\jeremy\Documents\Projects\Lisa.Kiwi.App\Shared\Proxy.cs" line="47" column="5" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
